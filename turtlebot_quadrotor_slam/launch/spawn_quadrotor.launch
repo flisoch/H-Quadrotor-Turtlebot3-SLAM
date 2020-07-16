@@ -1,0 +1,15 @@
+<launch>
+  
+   <group ns="uav">
+     <include file="$(find hector_quadrotor_gazebo)/launch/spawn_quadrotor.launch">
+      <arg name="model" value="$(find hector_quadrotor_description)/urdf/quadrotor_hokuyo_utm30lx.gazebo.xacro"/>
+       <arg name="name" value="uav" />
+       <arg name="tf_prefix" value="uav" />
+       <arg name="y" value="2.0" />
+     </include>
+   </group>
+
+    <!-- запуск двигателей квадротора -->
+     <node pkg="rosservice" type="rosservice" name="engage" args="call --wait /uav/engage"/>
+
+</launch>
