@@ -6,8 +6,8 @@
     <arg name="model" value="$(find hector_quadrotor_description)/urdf/quadrotor_hokuyo_utm30lx.gazebo.xacro"/>
     <arg name="name" value="uav"/> 
     <arg name="tf_prefix" value="uav" />
-
   </include>
+
    </group>
 
     <!-- запуск двигателей квадротора -->
