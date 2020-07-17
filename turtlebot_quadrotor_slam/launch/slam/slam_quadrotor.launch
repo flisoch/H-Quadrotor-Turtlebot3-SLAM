@@ -1,12 +1,12 @@
 <launch> 
-  <arg name="scan_topic" default="/uav/scan" /> 
  
 <!-- Defining parameters for slam_gmapping node --> 
  
-  <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen"> 
-    <param name="base_frame" value="/uav/base_footprint"/> 
-    <param name="odom_frame" value="/uav/odom"/> 
-    <param name="map_update_interval" value="5.0"/> 
+ <!--  <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen"> 
+    <param name="base_frame" value="base_footprint"/> 
+    <param name="odom_frame" value="odom"/> 
+    <param name="map_frame" value="map"/>
+    <param name="map_update_interval" value="2.0"/> 
     <param name="maxUrange" value="6.0"/> 
     <param name="maxRange" value="8.0"/> 
     <param name="sigma" value="0.05"/> 
@@ -17,7 +17,7 @@
     <param name="lsigma" value="0.075"/> 
     <param name="ogain" value="3.0"/> 
     <param name="lskip" value="0"/> 
-    <param name="minimumScore" value="100"/> 
+    <param name="minimumScore" value="50"/> 
     <param name="srr" value="0.01"/> 
     <param name="srt" value="0.02"/> 
     <param name="str" value="0.01"/> 
@@ -39,7 +39,7 @@
     <param name="lasamplerange" value="0.005"/> 
     <param name="lasamplestep" value="0.005"/> 
     <remap from="scan" to="$(arg scan_topic)"/> 
-  </node> 
+  </node>  -->
  
 <!-- Defining parameters for move_base node --> 
  
@@ -51,7 +51,25 @@
     <rosparam file="$(find diff_wheeled_robot_gazebo)/param/base_local_planner_params.yaml" command="load" /> 
     <rosparam file="$(find diff_wheeled_robot_gazebo)/param/dwa_local_planner_params.yaml" command="load" /> 
     <rosparam file="$(find diff_wheeled_robot_gazebo)/param/move_base_params.yaml" command="load" /> 
- 
   </node>  -->
+
+  <!-- Start SLAM system -->
+  <include file="$(find hector_mapping)/launch/mapping_default.launch">
+    <arg name="odom_frame" value="uav/odom"/>
+    <arg name="base_frame" value="uav/base_footprint"/>
+    <arg name="map_frame" value="uav/map"/>
+    <arg name="scan_topic" default="uav/scan" /> 
+    
+
+  </include>
  
+  <!-- Start GeoTIFF mapper -->
+  <include file="$(find hector_geotiff)/launch/geotiff_mapper.launch">
+    <arg name="trajectory_publish_rate" value="4"/> 
+  </include>
+  
+  <!-- Start rviz visualization with preset config -->
+  <node pkg="rviz" type="rviz" name="rviz" args="-d $(find hector_quadrotor_demo)/rviz_cfg/indoor_slam.rviz"/>
+
 </launch> 
+

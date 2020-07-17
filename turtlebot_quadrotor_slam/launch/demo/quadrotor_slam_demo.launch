@@ -1,0 +1,12 @@
+<launch>
+
+	<!-- launch world -->
+	<include file="$(find turtlebot_quadrotor_slam)/launch/world/world_quadrotor.launch" />
+	
+	<!-- spawn turtlebot -->
+	<include file="$(find turtlebot_quadrotor_slam)/launch/spawn/spawn_quadrotor.launch" />
+	
+	<!-- launch slam -->
+	<include file="$(find turtlebot_quadrotor_slam)/launch/slam/slam_quadrotor.launch" />
+
+</launch>

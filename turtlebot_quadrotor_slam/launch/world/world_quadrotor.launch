@@ -1,0 +1,4 @@
+<launch> 
+<!-- quadrotor world -->
+  <include file="$(find hector_gazebo_worlds)/launch/willow_garage.launch"/>
+</launch>
