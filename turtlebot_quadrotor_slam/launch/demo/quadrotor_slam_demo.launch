@@ -7,6 +7,6 @@
 	<include file="$(find turtlebot_quadrotor_slam)/launch/spawn/spawn_quadrotor.launch" />
 	
 	<!-- launch slam -->
-	<include file="$(find turtlebot_quadrotor_slam)/launch/slam/slam_quadrotor.launch" />
+	<include file="$(find turtlebot_quadrotor_slam)/launch/slam/slam_quadrotor_gmap.launch" />
 
 </launch>
